@@ -123,6 +123,9 @@ const renderNewPlayerForm = () => {
       // Collect form data
       const playerObj = {
         // Extract data from form fields
+        name: document.getElementById("name-input").value,
+        position: document.getElementById("position-input").value,
+        team: document.getElementById("team-input").value,
       };
       await addNewPlayer(playerObj);
       console.log("Player added!");
