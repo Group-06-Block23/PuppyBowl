@@ -108,15 +108,25 @@ const renderAllPlayers = async () => {
     console.error("Uh oh, trouble rendering players!", err);
   }
 };
+// Below is going to be an updated version of the form.
+// There will be a <label> and <input> elements for name, position, and team.
+// `required` attribute will be assigned to ensure all fields are filled out.
+// Once all fields are filled out the form can be submitted.
 
 const renderNewPlayerForm = () => {
   try {
-    const formHTML = `
-      <form id="new-player-form">
-        <!-- Add your form fields here -->
-        <button type="submit">Add Player</button>
-      </form>
-    `;
+    const formHTML = 
+    `<form id= "new-player-form">
+      <label for = "name-input"> Name:</label>
+      <input type = "text" id = "name-input" name = "name-input" required>
+      <label for = "position-input"> Position:</label>
+      <input type = "text" id = "position-input" name = "position-input" required>
+      <label for = "team-input"> Team:</label>
+      <input type= "text" id = "team-input" name = "team-input" required>
+      <button type= "submit"> Add Player </button>
+    </form>
+  `;
+
     newPlayerFormContainer.innerHTML = formHTML;
 
     const form = document.getElementById("new-player-form");
