@@ -64,7 +64,9 @@ const removePlayer = async (playerId) => {
 
 const renderAllPlayers = async () => {
   try {
-    const playerList = await fetchAllPlayers();
+    const tempList = await fetchAllPlayers();
+    const playerList = tempList.data.players;
+    console.log(playerList);
     let playerContainerHTML = "";
     playerList.forEach((player) => {
       const playerCardHTML = `
