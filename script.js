@@ -39,6 +39,7 @@ const addNewPlayer = async (playerObj) => {
       body: JSON.stringify(playerObj),
     });
     const data = await response.json();
+    console.log ("Player added:", data);
     return data;
   } catch (err) {
     console.error("Oops, something went wrong with adding that player!", err);
@@ -64,7 +65,9 @@ const removePlayer = async (playerId) => {
 
 const renderAllPlayers = async () => {
   try {
-    const playerList = await fetchAllPlayers();
+    const tempList = await fetchAllPlayers();
+    const playerList = tempList.data.players;
+    console.log(playerList);
     let playerContainerHTML = "";
     playerList.forEach((player) => {
       const playerCardHTML = `
@@ -100,26 +103,38 @@ const renderAllPlayers = async () => {
         console.log("Player removed:", playerId);
         // Update the UI by re-fetching and rendering all players
         await renderAllPlayers();
+        
       });
     });
   } catch (err) {
     console.error("Uh oh, trouble rendering players!", err);
   }
 };
+// Below is going to be an updated version of the form.
+// There will be a <label> and <input> elements for name, position, and team.
+// `required` attribute will be assigned to ensure all fields are filled out.
+// Once all fields are filled out the form can be submitted.
 
 const renderNewPlayerForm = () => {
   try {
     const formHTML = `
       <form id="new-player-form">
-        <!-- Add your form fields here -->
+        <label for="name-input">Name:</label>
+        <input type="text" id="name-input" name="name-input" required>
+        <label for="position-input">Position:</label>
+        <input type="text" id="position-input" name="position-input" required>
+        <label for="team-input">Team:</label>
+        <input type="text" id="team-input" name="team-input" required>
         <button type="submit">Add Player</button>
       </form>
     `;
+
     newPlayerFormContainer.innerHTML = formHTML;
 
-    const form = document.getElementById("new-player-form");
+    const form = document.getElementById("new-player-form").rese
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      console.log("form submitted")
       // Collect form data
       const playerObj = {
         // Extract data from form fields
@@ -129,8 +144,10 @@ const renderNewPlayerForm = () => {
       };
       await addNewPlayer(playerObj);
       console.log("Player added!");
+      // Clear input fields
       // Update the UI by re-fetching and rendering all players
       await renderAllPlayers();
+      
     });
   } catch (err) {
     console.error("Uh oh, trouble rendering the new player form!", err);
