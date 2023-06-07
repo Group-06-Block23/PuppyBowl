@@ -1,5 +1,119 @@
-*{
-  padding: 0;
+/* * {
+  padding: 0px;
   margin: 0;
   box-sizing: border-box;
+} */
+
+#header {
+    background-image: linear-gradient(rgba(8, 1, 42, 0.5), rgba(176, 161, 161, 0.5)), url('https://www.cincinnati.com/gcdn/presto/2023/02/07/USAT/754c2509-2219-4dbf-990d-65b6df148e95-presto_Jeremy_Freeman_-_Animal_Planet__Wolfie_and_Bleu.jpg?crop=1911,1075,x8,y0&width=1911&height=1075&format=pjpg&auto=webp');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 30px;
+    border-radius: 5px;
+  }
+  
+#header h1 {
+    color: white;
+    font-size: 3em;
+    font-family: Arial black, sans-serif;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    
+  }
+  
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 20px;
 }
+
+h2 {
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.player-card {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 15px gray
+
+}
+
+.player-card p {
+  margin: 10px 0;
+}
+
+.details-button,
+.remove-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.details-button:hover,
+.remove-button:hover {
+  background-color: #0056b3;
+}
+
+  #new-player-form {
+    display: grid;
+    grid-gap: 10px;
+    place-items: center;
+    width: 100vw;
+    padding: 10px;
+  }
+  
+  #new-player-form-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    display: grid;
+    place-items: center;
+  }
+  
+  #new-player-form-container form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    max-width: 400px; /* Optional: Limit the maximum width of the form */
+  }
+
+#new-player-form-container label {
+  margin-bottom: 10px;
+}
+
+#new-player-form-container input {
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+#new-player-form-container button[type="submit"] {
+  background-color: #28a745;
+}
+
+#new-player-form-container button[type="submit"]:hover {
+  background-color: #1e7e34;
+}
+
+#new-player-form-container .form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+#new-player-form-container .form-field label {
+  margin-bottom: 5px;
+}
+
+#new-player-form-container .form-field input {
+  padding: 8px;
+}
+
