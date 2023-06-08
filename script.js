@@ -115,8 +115,7 @@ const renderAllPlayers = async () => {
 
 const renderNewPlayerForm = () => {
   try {
-    const formHTML = 
-    `<form id= "new-player-form">
+    const formHTML = `<form id= "new-player-form">
       <label for = "name-input"> Name:</label>
       <input type = "text" id = "name-input" name = "name-input" required>
       <label for = "position-input"> Position:</label>
