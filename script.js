@@ -73,8 +73,12 @@ const renderAllPlayers = async () => {
       const playerCardHTML = `
         <div class="player-card">
           <h2>${player.name}</h2>
-          <p>Position: ${player.position}</p>
-          <p>Team: ${player.team}</p>
+          <p>Position: ${player.status}</p>
+          <p>Team: ${player.teamId}</p>
+          <div class="player-details">
+         <p class="player-breed">Breed: ${player.breed}</p>
+          </div>
+          <img src="${player.imageUrl}" alt="${player.name}" class="player-image"><br>
           <button class="details-button" data-player-id="${player.id}">See details</button>
           <button class="remove-button" data-player-id="${player.id}">Remove from roster</button>
         </div>
@@ -82,6 +86,10 @@ const renderAllPlayers = async () => {
       playerContainerHTML += playerCardHTML;
     });
     playerContainer.innerHTML = playerContainerHTML;
+    playerContainer.innerHTML = `<div class="player-container">${playerContainerHTML}</div>`;
+
+  
+
 
     // Add event listeners to the buttons
     const detailsButtons = document.querySelectorAll(".details-button");
@@ -92,9 +100,14 @@ const renderAllPlayers = async () => {
         const playerId = button.dataset.playerId;
         const player = await fetchSinglePlayer(playerId);
         console.log("Player details:", player);
-        // Update the UI with the player details
-      });
-    });
+
+    const playerCard = button.closest(".player-card");
+
+    const playerDetails = playerCard.querySelector(".player-details");
+
+    playerDetails.style.display = playerDetails.style.display === "none" ? "block" : "none";
+  });
+});
 
     removeButtons.forEach((button) => {
       button.addEventListener("click", async () => {
@@ -115,44 +128,77 @@ const renderAllPlayers = async () => {
 // `required` attribute will be assigned to ensure all fields are filled out.
 // Once all fields are filled out the form can be submitted.
 
+
 const renderNewPlayerForm = () => {
   try {
-    const formHTML = `
-      <form id="new-player-form">
-        <label for="name-input">Name:</label>
-        <input type="text" id="name-input" name="name-input" required>
-        <label for="position-input">Position:</label>
-        <input type="text" id="position-input" name="position-input" required>
-        <label for="team-input">Team:</label>
-        <input type="text" id="team-input" name="team-input" required>
-        <button type="submit">Add Player</button>
-      </form>
-    `;
+    const form = document.createElement("form");
+    form.id = "new-player-form";
 
-    newPlayerFormContainer.innerHTML = formHTML;
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.id = "name-input";
+    nameInput.name = "name-input";
+    nameInput.required = true;
+    const nameLabel = document.createElement("label");
+    nameLabel.textContent = "Name:";
+    nameLabel.setAttribute("for", "name-input");
+    form.appendChild(nameLabel);
+    form.appendChild(nameInput);
 
-    const form = document.getElementById("new-player-form").rese
+    const positionInput = document.createElement("input");
+    positionInput.type = "text";
+    positionInput.id = "position-input";
+    positionInput.name = "position-input";
+    positionInput.required = true;
+    const positionLabel = document.createElement("label");
+    positionLabel.textContent = "Position:";
+    positionLabel.setAttribute("for", "position-input");
+    form.appendChild(positionLabel);
+    form.appendChild(positionInput);
+
+    const teamInput = document.createElement("input");
+    teamInput.type = "text";
+    teamInput.id = "team-input";
+    teamInput.name = "team-input";
+    teamInput.required = true;
+    const teamLabel = document.createElement("label");
+    teamLabel.textContent = "Team:";
+    teamLabel.setAttribute("for", "team-input");
+    form.appendChild(teamLabel);
+    form.appendChild(teamInput);
+
+    const addButton = document.createElement("button");
+    addButton.type = "submit";
+    addButton.textContent = "Add Player";
+    form.appendChild(addButton);
+
+    newPlayerFormContainer.innerHTML = "";
+    newPlayerFormContainer.appendChild(form);
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      console.log("form submitted")
+      console.log("Form submitted");
       // Collect form data
-      const playerObj = {
-        // Extract data from form fields
-        name: document.getElementById("name-input").value,
-        position: document.getElementById("position-input").value,
-        team: document.getElementById("team-input").value,
-      };
+     // Collect form data
+    const playerObj = {
+  // Extract data from form fields
+    name: document.getElementById("name-input").value,
+    position: document.getElementById("position-input").value,
+    team: document.getElementById("team-input").value,
+  };
+
       await addNewPlayer(playerObj);
       console.log("Player added!");
       // Clear input fields
+      form.reset();
       // Update the UI by re-fetching and rendering all players
       await renderAllPlayers();
-      
     });
   } catch (err) {
     console.error("Uh oh, trouble rendering the new player form!", err);
   }
 };
+
 
 const init = async () => {
   await renderAllPlayers();
