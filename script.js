@@ -206,7 +206,6 @@ const renderNewPlayerForm = () => {
   }
 };
 
-
 const init = async () => {
   await renderAllPlayers();
   renderNewPlayerForm();
