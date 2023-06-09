@@ -174,8 +174,7 @@ const renderNewPlayerForm = () => {
 
     newPlayerFormContainer.innerHTML = "";
     newPlayerFormContainer.appendChild(form);
-
-
+  
 const renderNewPlayerForm = () => {
   try {
     const formHTML = `<form id= "new-player-form">
@@ -221,5 +220,6 @@ const init = async () => {
   await renderAllPlayers();
   renderNewPlayerForm();
 };
+  
 
 init();
