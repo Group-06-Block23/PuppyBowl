@@ -8,8 +8,8 @@ newPlayerFormContainer.id = "new-player-form";
 document.body.appendChild(playerContainer);
 document.body.appendChild(newPlayerFormContainer);
 
-const cohortName = "2302-acc-pt-web-pt-d";
-const API_URL = 'https://fsa-puppy-bowl.herokuapp.com/api/"cohortName"/';
+const cohortName = "2302-acc-pt-web-pt-d/players";
+const API_URL = "https://fsa-puppy-bowl.herokuapp.com/api/cohortName/";
 
 // Fetch players from the API
 const fetchPlayers = async () => {
