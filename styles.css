@@ -1,16 +1,15 @@
 #header {
   background-image: linear-gradient(135deg, #00000069 8%, #f4f1f86b 100%),
-    url("https://www.cincinnati.com/gcdn/presto/2023/02/07/USAT/754c2509-2219-4dbf-990d-65b6df148e95-presto_Jeremy_Freeman_-_Animal_Planet__Wolfie_and_Bleu.jpg?crop=1911,1075,x8,y0&width=1911&height=1075&format=pjpg&auto=webp");
-  background-size: cover;
+    url("https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/03/dog-group.jpg");
+  background-size: contain;
   background-position: center;
   text-align: center;
   padding: 30px;
-  border-radius: 5px 5px 60px 60px;
-  margin-left: auto;
+  border-radius: 5px;
 }
 
 #header h1 {
-  color: white;
+  color: rgb(248, 242, 242);
   font-size: 3em;
   font-family: Arial black, sans-serif;
   letter-spacing: 5px;
@@ -21,17 +20,12 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f2f2f2;
   margin: 0;
+  padding: 20px;
 }
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-}
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  margin: 0;
-  padding: 20px;
 }
 
 h2 {
@@ -71,12 +65,12 @@ h2 {
   margin-bottom: 10px;
 }
 
-.player-card {
+/* .player-card {
   background-color: #fff;
   border-radius: 4px;
   padding: 20px;
   margin-bottom: 20px;
-}
+} */
 
 .player-card p {
   margin: 10px 0;
@@ -90,7 +84,7 @@ h2 {
 .remove-button {
   background-color: #007bff;
   color: #fff;
-  width: 100%;
+  width: 15%;
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
@@ -100,7 +94,7 @@ h2 {
 
 .details-button:hover,
 .remove-button:hover {
-  background-color: #0056b3;
+  background-color: #b30000;
 }
 
 #new-player-form {

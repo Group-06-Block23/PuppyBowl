@@ -1,12 +1,20 @@
-const playerContainer = document.getElementById("all-players-container");
-const newPlayerFormContainer = document.getElementById("new-player-form");
+// Create player container and new player form elements
+const playerContainer = document.createElement("div");
+playerContainer.id = "all-players-container";
+const newPlayerFormContainer = document.createElement("div");
+newPlayerFormContainer.id = "new-player-form";
+
+// Append player container and new player form to the document body
+document.body.appendChild(playerContainer);
+document.body.appendChild(newPlayerFormContainer);
 
 const cohortName = "2302-acc-pt-web-pt-d";
-const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
+const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/"2302-acc-pt-web-pt-d"/`;
 
-const fetchAllPlayers = async () => {
+// Fetch players from the API
+const fetchPlayers = async (url) => {
   try {
-    const response = await fetch(`${API_URL}players`);
+    const response = await fetch(url);
     const data = await response.json();
     return data;
   } catch (err) {
@@ -15,20 +23,22 @@ const fetchAllPlayers = async () => {
   }
 };
 
-const fetchSinglePlayer = async (playerId) => {
+// Fetch a single player from the API
+const fetchPlayer = async (url) => {
   try {
-    const response = await fetch(`${API_URL}players/${playerId}`);
+    const response = await fetch(url);
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(`Oh no, trouble fetching player #${playerId}!`, err);
+    console.error("Uh oh, trouble fetching player!", err);
     throw err;
   }
 };
 
-const addNewPlayer = async (playerObj) => {
+// Add a new player to the API
+const addPlayer = async (url, playerObj) => {
   try {
-    const response = await fetch(`${API_URL}players`, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,141 +54,169 @@ const addNewPlayer = async (playerObj) => {
   }
 };
 
-const removePlayer = async (playerId) => {
+// Remove a player from the API
+const removePlayer = async (url) => {
   try {
-    const response = await fetch(`${API_URL}players/${playerId}`, {
+    const response = await fetch(url, {
       method: "DELETE",
     });
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(
-      `Whoops, trouble removing player #${playerId} from the roster!`,
-      err
-    );
+    console.error("Whoops, trouble removing the player from the roster!", err);
     throw err;
   }
 };
 
+// Render a player card with details
+const renderPlayerCard = (player) => {
+  const playerCard = document.createElement("div");
+  playerCard.classList.add("player-card");
+
+  const playerName = document.createElement("h2");
+  playerName.textContent = player.name;
+
+  const playerPosition = document.createElement("p");
+  playerPosition.textContent = `Position: ${player.position}`;
+
+  const playerTeam = document.createElement("p");
+  playerTeam.textContent = `Team: ${player.team}`;
+
+  const playerDetails = document.createElement("div");
+  playerDetails.classList.add("player-details");
+
+  const playerBreed = document.createElement("p");
+  playerBreed.classList.add("player-breed");
+  playerBreed.textContent = `Breed: ${player.breed}`;
+
+  const playerImage = document.createElement("img");
+  playerImage.src = player.imageUrl;
+  playerImage.alt = player.name;
+  playerImage.classList.add("player-image");
+
+  const detailsButton = document.createElement("button");
+  detailsButton.classList.add("details-button");
+  detailsButton.dataset.playerId = player.id;
+  detailsButton.textContent = "See details";
+
+  const removeButton = document.createElement("button");
+  removeButton.classList.add("remove-button");
+  removeButton.dataset.playerId = player.id;
+  removeButton.textContent = "Remove from roster";
+
+  playerDetails.appendChild(playerBreed);
+  playerCard.appendChild(playerName);
+  playerCard.appendChild(playerPosition);
+  playerCard.appendChild(playerTeam);
+  playerCard.appendChild(playerDetails);
+  playerCard.appendChild(playerImage);
+  playerCard.appendChild(detailsButton);
+  playerCard.appendChild(removeButton);
+  playerContainer.appendChild(playerCard);
+
+  // Styling player card and its components
+  playerCard.style.border = "1px solid #ccc";
+  playerCard.style.padding = "10px";
+  playerCard.style.marginBottom = "10px";
+
+  playerName.style.marginBottom = "5px";
+  playerName.style.fontSize = "18px";
+
+  playerPosition.style.margin = "0";
+  playerPosition.style.fontSize = "14px";
+
+  playerTeam.style.margin = "0";
+  playerTeam.style.fontSize = "14px";
+
+  playerBreed.style.margin = "0";
+  playerBreed.style.fontSize = "14px";
+
+  playerImage.style.width = "150px";
+  playerImage.style.height = "150px";
+  playerImage.style.objectFit = "cover";
+
+  detailsButton.style.marginTop = "5px";
+  removeButton.style.marginTop = "5px";
+
+  detailsButton.addEventListener("click", async () => {
+    const playerId = detailsButton.dataset.playerId;
+    const player = await fetchPlayer(`${API_URL}players/${playerId}`);
+    console.log("Player details:", player);
+
+    playerDetails.style.display =
+      playerDetails.style.display === "none" ? "block" : "none";
+  });
+
+  removeButton.addEventListener("click", async () => {
+    const playerId = removeButton.dataset.playerId;
+    await removePlayer(`${API_URL}players/${playerId}`);
+    console.log("Player removed:", playerId);
+    await renderAllPlayers();
+  });
+};
+
+// Render all players
 const renderAllPlayers = async () => {
   try {
-    const tempList = await fetchAllPlayers();
-    const playerList = tempList.data.players;
-    console.log(playerList);
+    const {
+      data: { players },
+    } = await fetchPlayers(`${API_URL}players`);
     playerContainer.innerHTML = ""; // Clear previous content
 
-    playerList.forEach((player) => {
-      const playerCard = document.createElement("div");
-      playerCard.classList.add("player-card");
-
-      const playerName = document.createElement("h2");
-      playerName.textContent = player.name;
-
-      const playerPosition = document.createElement("p");
-      playerPosition.textContent = `Position: ${player.position}`;
-
-      const playerTeam = document.createElement("p");
-      playerTeam.textContent = `Team: ${player.team}`;
-
-      const playerDetails = document.createElement("div");
-      playerDetails.classList.add("player-details");
-
-      const playerBreed = document.createElement("p");
-      playerBreed.classList.add("player-breed");
-      playerBreed.textContent = `Breed: ${player.breed}`;
-
-      const playerImage = document.createElement("img");
-      playerImage.src = player.imageUrl;
-      playerImage.alt = player.name;
-      playerImage.classList.add("player-image");
-
-      const detailsButton = document.createElement("button");
-      detailsButton.classList.add("details-button");
-      detailsButton.dataset.playerId = player.id;
-      detailsButton.textContent = "See details";
-
-      const removeButton = document.createElement("button");
-      removeButton.classList.add("remove-button");
-      removeButton.dataset.playerId = player.id;
-      removeButton.textContent = "Remove from roster";
-
-      playerDetails.appendChild(playerBreed);
-      playerCard.appendChild(playerName);
-      playerCard.appendChild(playerPosition);
-      playerCard.appendChild(playerTeam);
-      playerCard.appendChild(playerDetails);
-      playerCard.appendChild(playerImage);
-      playerCard.appendChild(detailsButton);
-      playerCard.appendChild(removeButton);
-      playerContainer.appendChild(playerCard);
-
-      detailsButton.addEventListener("click", async () => {
-        const playerId = detailsButton.dataset.playerId;
-        const player = await fetchSinglePlayer(playerId);
-        console.log("Player details:", player);
-
-        playerDetails.style.display =
-          playerDetails.style.display === "none" ? "block" : "none";
-      });
-
-      removeButton.addEventListener("click", async () => {
-        const playerId = removeButton.dataset.playerId;
-        await removePlayer(playerId);
-        console.log("Player removed:", playerId);
-        await renderAllPlayers();
-      });
+    players.forEach((player) => {
+      renderPlayerCard(player);
     });
   } catch (err) {
     console.error("Uh oh, trouble rendering players!", err);
   }
 };
 
+// Render the new player form
 const renderNewPlayerForm = () => {
   try {
     const form = document.createElement("form");
     form.id = "new-player-form";
 
-    const nameLabel = document.createElement("label");
-    nameLabel.textContent = "Name:";
-    nameLabel.setAttribute("for", "name-input");
+    const createInput = (
+      labelText,
+      inputType,
+      inputName,
+      isRequired = true
+    ) => {
+      const label = document.createElement("label");
+      label.textContent = labelText;
+      label.setAttribute("for", inputName);
 
-    const nameInput = document.createElement("input");
-    nameInput.type = "text";
-    nameInput.id = "name-input";
-    nameInput.name = "name-input";
-    nameInput.required = true;
+      const input = document.createElement("input");
+      input.type = inputType;
+      input.id = inputName;
+      input.name = inputName;
+      input.required = isRequired;
 
-    const positionLabel = document.createElement("label");
-    positionLabel.textContent = "Position:";
-    positionLabel.setAttribute("for", "position-input");
+      return { label, input };
+    };
 
-    const positionInput = document.createElement("input");
-    positionInput.type = "text";
-    positionInput.id = "position-input";
-    positionInput.name = "position-input";
-    positionInput.required = true;
-
-    const teamLabel = document.createElement("label");
-    teamLabel.textContent = "Team:";
-    teamLabel.setAttribute("for", "team-input");
-
-    const teamInput = document.createElement("input");
-    teamInput.type = "text";
-    teamInput.id = "team-input";
-    teamInput.name = "team-input";
-    teamInput.required = true;
+    const nameInput = createInput("Name:", "text", "name-input");
+    const positionInput = createInput("Position:", "text", "position-input");
+    const teamInput = createInput("Team:", "text", "team-input");
 
     const addButton = document.createElement("button");
     addButton.type = "submit";
     addButton.textContent = "Add Player";
 
-    form.appendChild(nameLabel);
-    form.appendChild(nameInput);
-    form.appendChild(positionLabel);
-    form.appendChild(positionInput);
-    form.appendChild(teamLabel);
-    form.appendChild(teamInput);
-    form.appendChild(addButton);
+    form.append(
+      nameInput.label,
+      nameInput.input,
+      positionInput.label,
+      positionInput.input,
+      teamInput.label,
+      teamInput.input,
+      addButton
+    );
+
+    // Styling new player form
+    form.style.marginBottom = "10px";
+    addButton.style.marginTop = "5px";
 
     newPlayerFormContainer.innerHTML = ""; // Clear previous content
     newPlayerFormContainer.appendChild(form);
@@ -187,12 +225,12 @@ const renderNewPlayerForm = () => {
       e.preventDefault();
 
       const playerObj = {
-        name: nameInput.value,
-        position: positionInput.value,
-        team: teamInput.value,
+        name: nameInput.input.value,
+        position: positionInput.input.value,
+        team: teamInput.input.value,
       };
 
-      await addNewPlayer(playerObj);
+      await addPlayer(`${API_URL}players`, playerObj);
       console.log("Player added!");
       form.reset();
       await renderAllPlayers();
