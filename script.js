@@ -39,7 +39,7 @@ const addNewPlayer = async (playerObj) => {
       body: JSON.stringify(playerObj),
     });
     const data = await response.json();
-    console.log ("Player added:", data);
+    console.log("Player added:", data);
     return data;
   } catch (err) {
     console.error("Oops, something went wrong with adding that player!", err);
@@ -129,52 +129,7 @@ const renderAllPlayers = async () => {
 // Once all fields are filled out the form can be submitted.
 
 
-const renderNewPlayerForm = () => {
-  try {
-    const form = document.createElement("form");
-    form.id = "new-player-form";
 
-    const nameInput = document.createElement("input");
-    nameInput.type = "text";
-    nameInput.id = "name-input";
-    nameInput.name = "name-input";
-    nameInput.required = true;
-    const nameLabel = document.createElement("label");
-    nameLabel.textContent = "Name:";
-    nameLabel.setAttribute("for", "name-input");
-    form.appendChild(nameLabel);
-    form.appendChild(nameInput);
-
-    const positionInput = document.createElement("input");
-    positionInput.type = "text";
-    positionInput.id = "position-input";
-    positionInput.name = "position-input";
-    positionInput.required = true;
-    const positionLabel = document.createElement("label");
-    positionLabel.textContent = "Position:";
-    positionLabel.setAttribute("for", "position-input");
-    form.appendChild(positionLabel);
-    form.appendChild(positionInput);
-
-    const teamInput = document.createElement("input");
-    teamInput.type = "text";
-    teamInput.id = "team-input";
-    teamInput.name = "team-input";
-    teamInput.required = true;
-    const teamLabel = document.createElement("label");
-    teamLabel.textContent = "Team:";
-    teamLabel.setAttribute("for", "team-input");
-    form.appendChild(teamLabel);
-    form.appendChild(teamInput);
-
-    const addButton = document.createElement("button");
-    addButton.type = "submit";
-    addButton.textContent = "Add Player";
-    form.appendChild(addButton);
-
-    newPlayerFormContainer.innerHTML = "";
-    newPlayerFormContainer.appendChild(form);
-  
 const renderNewPlayerForm = () => {
   try {
     const formHTML = `<form id= "new-player-form">
