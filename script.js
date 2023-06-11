@@ -133,25 +133,6 @@ const renderAllPlayers = async () => {
   }
 };
 
-
-
-const renderNewPlayerForm = () => {
-  try {
-    const formHTML = `<form id= "new-player-form">
-      <label for = "name-input"> Name:</label>
-      <input type = "text" id = "name-input" name = "name-input" required>
-      <label for = "position-input"> Position:</label>
-      <input type = "text" id = "position-input" name = "position-input" required>
-      <label for = "team-input"> Team:</label>
-      <input type= "text" id = "team-input" name = "team-input" required>
-      <button type= "submit"> Add Player </button>
-    </form>
-  `;
-
-    newPlayerFormContainer.innerHTML = formHTML;
-
-    const form = document.getElementById("new-player-form");
-
 const renderNewPlayerForm = () => {
   try {
     const form = document.createElement("form");
@@ -201,7 +182,6 @@ const renderNewPlayerForm = () => {
 
     newPlayerFormContainer.innerHTML = ""; // Clear previous content
     newPlayerFormContainer.appendChild(form);
-
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
