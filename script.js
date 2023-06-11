@@ -9,12 +9,12 @@ document.body.appendChild(playerContainer);
 document.body.appendChild(newPlayerFormContainer);
 
 const cohortName = "2302-acc-pt-web-pt-d";
-const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/"2302-acc-pt-web-pt-d"/`;
+const API_URL = 'https://fsa-puppy-bowl.herokuapp.com/api/"cohortName"/';
 
 // Fetch players from the API
-const fetchPlayers = async (url) => {
+const fetchPlayers = async () => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(`${API_URL}players`);
     const data = await response.json();
     return data;
   } catch (err) {
@@ -24,9 +24,9 @@ const fetchPlayers = async (url) => {
 };
 
 // Fetch a single player from the API
-const fetchPlayer = async (url) => {
+const fetchPlayer = async () => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(`${API_URL}players`);
     const data = await response.json();
     return data;
   } catch (err) {
@@ -36,9 +36,9 @@ const fetchPlayer = async (url) => {
 };
 
 // Add a new player to the API
-const addPlayer = async (url, playerObj) => {
+const addPlayer = async (playerObj) => {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${API_URL}players`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,9 +55,9 @@ const addPlayer = async (url, playerObj) => {
 };
 
 // Remove a player from the API
-const removePlayer = async (url) => {
+const removePlayer = async () => {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${API_URL}players`, {
       method: "DELETE",
     });
     const data = await response.json();
@@ -77,10 +77,13 @@ const renderPlayerCard = (player) => {
   playerName.textContent = player.name;
 
   const playerPosition = document.createElement("p");
-  playerPosition.textContent = `Position: ${player.position}`;
+  playerPosition.textContent = `Status: ${player.status}`;
+
+  const playerId = document.createElement("p");
+  playerId.textContent = `ID #: ${player.id}`;
 
   const playerTeam = document.createElement("p");
-  playerTeam.textContent = `Team: ${player.team}`;
+  playerTeam.textContent = `Team: ${player.cohortId}`;
 
   const playerDetails = document.createElement("div");
   playerDetails.classList.add("player-details");
@@ -106,6 +109,7 @@ const renderPlayerCard = (player) => {
 
   playerDetails.appendChild(playerBreed);
   playerCard.appendChild(playerName);
+  playerCard.appendChild(playerId);
   playerCard.appendChild(playerPosition);
   playerCard.appendChild(playerTeam);
   playerCard.appendChild(playerDetails);

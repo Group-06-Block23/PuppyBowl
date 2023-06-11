@@ -1,19 +1,8 @@
-#header {
-  background-image: linear-gradient(135deg, #00000069 8%, #f4f1f86b 100%),
-    url("https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/03/dog-group.jpg");
-  background-size: contain;
-  background-position: center;
-  text-align: center;
-  padding: 30px;
-  border-radius: 5px;
-}
-
-#header h1 {
-  color: rgb(248, 242, 242);
-  font-size: 3em;
-  font-family: Arial black, sans-serif;
-  letter-spacing: 5px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+/* Global Styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -22,29 +11,36 @@ body {
   margin: 0;
   padding: 20px;
 }
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+
+/* Header Styles */
+#header {
+  background-image: linear-gradient(135deg, #00000069 8%, #f4f1f86b 100%),
+    url("https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/advisor/wp-content/uploads/2021/03/dog-group.jpg");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 30px;
+  border-radius: 5px;
 }
 
-h2 {
-  color: #333;
-  font-family: arial black;
-  letter-spacing: 3px;
-  text-shadow: 3px 1px 4px #9a9b9b;
-  font-size: 30px;
-  margin-bottom: 10px;
+#header h1 {
+  color: #f8f2f2;
+  font-size: 3em;
+  font-family: "Arial Black", sans-serif;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Player Card Styles */
 .player-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 20px;
 }
 
 .player-card {
-  background-color: #fff;
+  background-color: #d6d5d5;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -52,39 +48,32 @@ h2 {
   align-items: center;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 5px 5px 20px rgb(175, 174, 174);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .player-image {
-  max-width: 35%;
-  max-height: 35%;
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
   border-radius: 5px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-
-  font-size: 20px;
-  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-
-/* .player-card {
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 20px;
-  margin-bottom: 20px;
-} */
 
 .player-card p {
   margin: 10px 0;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
+
 .player-details {
-  display: none;
+  color: #b30000;
+  font-style: italic;
 }
 
 .details-button,
 .remove-button {
   background-color: #007bff;
   color: #fff;
-  width: 15%;
+  width: 30%;
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
@@ -97,19 +86,17 @@ h2 {
   background-color: #b30000;
 }
 
+/* New Player Form Styles */
 #new-player-form {
-  display: grid;
-  grid-gap: 10px;
-  place-items: center;
-  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 10px;
 }
 
 #new-player-form-container {
   margin-bottom: 20px;
   padding: 20px;
-  display: grid;
-  place-items: center;
 }
 
 #new-player-form-container form {
@@ -128,22 +115,12 @@ h2 {
   margin-bottom: 10px;
 }
 
-#new-player-form-container {
-  margin-bottom: 20px;
-}
-
-#new-player-form-container form {
-  display: flex;
-  flex-direction: column;
-}
-
-#new-player-form-container input {
-  margin-bottom: 10px;
-  padding: 8px;
-}
-
 #new-player-form-container button[type="submit"] {
   background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
 }
 
 #new-player-form-container button[type="submit"]:hover {
