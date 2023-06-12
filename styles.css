@@ -38,10 +38,9 @@ h2 {
   text-transform: uppercase;
 }
 
-.player-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+#all-players-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .player-card {
