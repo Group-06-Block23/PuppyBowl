@@ -55,16 +55,21 @@ const addPlayer = async (playerObj) => {
 };
 
 // Remove a player from the API
-const removePlayer = async () => {
+const deleteParty = async (playerId) => {
+  // your code here
   try {
-    const response = await fetch(`${API_URL}players`, {
+    const response = await fetch(`${API_URL}/players/${playerId}`, {
       method: "DELETE",
     });
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.error("Whoops, trouble removing the player from the roster!", err);
-    throw err;
+    if (response.ok) {
+      // Party successfully deleted
+      console.log("Player Removed");
+    } else {
+      // Failed to delete player
+      console.error("Whoops, trouble removing the player from the roster!");
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -167,7 +172,7 @@ const renderPlayerCard = (player) => {
 
   removeButton.addEventListener("click", async () => {
     const playerId = removeButton.dataset.playerId;
-    await removePlayer(`${API_URL}players/${playerId}`);
+    await deleteParty(playerId); // Updated function name
     console.log("Player removed:", playerId);
     await renderAllPlayers();
   });
@@ -191,71 +196,74 @@ const renderAllPlayers = async () => {
 
 // Render the new player form
 const renderNewPlayerForm = () => {
-  try {
-    const form = document.createElement("form");
-    form.id = "new-player-form";
+  const formContainer = document.createElement("div");
+  formContainer.id = "new-player-form-container";
 
-    const createInput = (
-      labelText,
-      inputType,
-      inputName,
-      isRequired = true
-    ) => {
-      const label = document.createElement("label");
-      label.textContent = labelText;
-      label.setAttribute("for", inputName);
+  const formTitle = document.createElement("h2");
+  formTitle.textContent = "New-Player-Form";
 
-      const input = document.createElement("input");
-      input.type = inputType;
-      input.id = inputName;
-      input.name = inputName;
-      input.required = isRequired;
+  const form = document.createElement("form");
+  form.id = "new-player-form";
 
-      return { label, input };
+  const nameLabel = document.createElement("label");
+  nameLabel.textContent = "Name:";
+  const nameInput = document.createElement("input");
+  nameInput.type = "text";
+  nameInput.name = "name";
+  nameInput.required = true;
+
+  const positionLabel = document.createElement("label");
+  positionLabel.textContent = "Position:";
+  const positionInput = document.createElement("input");
+  positionInput.type = "text";
+  positionInput.name = "position";
+  positionInput.required = true;
+
+  const teamLabel = document.createElement("label");
+  teamLabel.textContent = "Team:";
+  const teamInput = document.createElement("input");
+  teamInput.type = "text";
+  teamInput.name = "team";
+  teamInput.required = true;
+
+  const addButton = document.createElement("button");
+  addButton.type = "submit";
+  addButton.textContent = "Add Player";
+
+  form.appendChild(nameLabel);
+  form.appendChild(nameInput);
+  form.appendChild(positionLabel);
+  form.appendChild(positionInput);
+  form.appendChild(teamLabel);
+  form.appendChild(teamInput);
+  form.appendChild(addButton);
+
+  formContainer.appendChild(formTitle);
+  formContainer.appendChild(form);
+
+  // Add form styling if needed
+  formContainer.style.marginBottom = "10px";
+
+  document.body.appendChild(formContainer);
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const player = {
+      name: nameInput.value,
+      position: positionInput.value,
+      team: teamInput.value,
     };
 
-    const nameInput = createInput("Name:", "text", "name-input");
-    const positionInput = createInput("Position:", "text", "position-input");
-    const teamInput = createInput("Team:", "text", "team-input");
-
-    const addButton = document.createElement("button");
-    addButton.type = "submit";
-    addButton.textContent = "Add Player";
-
-    form.append(
-      nameInput.label,
-      nameInput.input,
-      positionInput.label,
-      positionInput.input,
-      teamInput.label,
-      teamInput.input,
-      addButton
-    );
-
-    // Styling new player form
-    form.style.marginBottom = "10px";
-    addButton.style.marginTop = "5px";
-
-    newPlayerFormContainer.innerHTML = ""; // Clear previous content
-    newPlayerFormContainer.appendChild(form);
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const playerObj = {
-        name: nameInput.input.value,
-        position: positionInput.input.value,
-        team: teamInput.input.value,
-      };
-
-      await addPlayer(playerObj);
-      console.log("Player added!");
+    try {
+      await addPlayer(player);
+      console.log("Player added successfully!");
       form.reset();
       await renderAllPlayers();
-    });
-  } catch (err) {
-    console.error("Uh oh, trouble rendering the new player form!", err);
-  }
+    } catch (error) {
+      console.error("Failed to add player:", error);
+    }
+  });
 };
 
 const init = async () => {
