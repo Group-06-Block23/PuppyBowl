@@ -200,7 +200,7 @@ const renderNewPlayerForm = () => {
   formContainer.id = "new-player-form-container";
 
   const formTitle = document.createElement("h2");
-  formTitle.textContent = "New-Player-Form";
+  formTitle.textContent = `"New Player Form"`;
 
   const form = document.createElement("form");
   form.id = "new-player-form";
