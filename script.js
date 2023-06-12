@@ -212,6 +212,13 @@ const renderNewPlayerForm = () => {
   nameInput.name = "name";
   nameInput.required = true;
 
+  const idLabel = document.createElement("label");
+  idLabel.textContent = "Team ID:";
+  const idInput = document.createElement("input");
+  idInput.type = "text";
+  idInput.name = "name";
+  idInput.required = true;
+
   const positionLabel = document.createElement("label");
   positionLabel.textContent = "Position:";
   const positionInput = document.createElement("input");
@@ -232,6 +239,8 @@ const renderNewPlayerForm = () => {
 
   form.appendChild(nameLabel);
   form.appendChild(nameInput);
+  form.appendChild(idLabel);
+  form.appendChild(idInput);
   form.appendChild(positionLabel);
   form.appendChild(positionInput);
   form.appendChild(teamLabel);
