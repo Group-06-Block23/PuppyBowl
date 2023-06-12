@@ -253,8 +253,8 @@ const renderNewPlayerForm = () => {
 
   form.appendChild(nameLabel);
   form.appendChild(nameInput);
-  //form.appendChild(idLabel);
-  //form.appendChild(idInput);
+  form.appendChild(idLabel);
+  form.appendChild(idInput);
   form.appendChild(positionLabel);
   form.appendChild(positionInput);
   form.appendChild(teamLabel);
@@ -282,7 +282,7 @@ const renderNewPlayerForm = () => {
       //team: teamInput.value,
       teamId: 777,
       chortId: 422,
-      "imageUrl": imageInput.value,
+      imageUrl: imageInput.value,
       breed: breedInput.value,
     };
 
