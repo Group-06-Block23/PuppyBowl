@@ -9,7 +9,7 @@ document.body.appendChild(playerContainer);
 document.body.appendChild(newPlayerFormContainer);
 
 const cohortName = "2302-acc-pt-web-pt-d";
-const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/"cohortName"/`;
+const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
 // Fetch players from the API
 const fetchPlayers = async () => {
@@ -76,11 +76,17 @@ const renderPlayerCard = (player) => {
   const playerName = document.createElement("h2");
   playerName.textContent = player.name;
 
+  const dateCreated = document.createElement("p");
+  dateCreated.textContent = `Created: ${player.createdAt}`;
+
+  const dateModified = document.createElement("p");
+  dateModified.textContent = `Modified: ${player.updatedAt}`;
+
   const playerPosition = document.createElement("p");
   playerPosition.textContent = `Status: ${player.status}`;
 
   const playerId = document.createElement("p");
-  playerId.textContent = `ID #: ${player.id}`;
+  playerId.textContent = `ID Number: ${player.id}`;
 
   const playerTeam = document.createElement("p");
   playerTeam.textContent = `Team: ${player.cohortId}`;
@@ -108,10 +114,12 @@ const renderPlayerCard = (player) => {
   removeButton.textContent = "Remove from roster";
 
   playerDetails.appendChild(playerBreed);
+  playerDetails.appendChild(playerPosition);
+  playerDetails.appendChild(playerTeam);
+  playerDetails.appendChild(dateCreated);
+  playerDetails.appendChild(dateModified);
   playerCard.appendChild(playerName);
   playerCard.appendChild(playerId);
-  playerCard.appendChild(playerPosition);
-  playerCard.appendChild(playerTeam);
   playerCard.appendChild(playerDetails);
   playerCard.appendChild(playerImage);
   playerCard.appendChild(detailsButton);
@@ -134,6 +142,12 @@ const renderPlayerCard = (player) => {
 
   playerBreed.style.margin = "0";
   playerBreed.style.fontSize = "14px";
+
+  dateCreated.style.margin = "0";
+  dateCreated.style.fontSize = "14px";
+
+  dateModified.style.margin = "0";
+  dateModified.style.fontSize = "14px";
 
   playerImage.style.width = "150px";
   playerImage.style.height = "150px";
@@ -234,7 +248,7 @@ const renderNewPlayerForm = () => {
         team: teamInput.input.value,
       };
 
-      await addPlayer(`${API_URL}players`, playerObj);
+      await addPlayer(playerObj);
       console.log("Player added!");
       form.reset();
       await renderAllPlayers();
