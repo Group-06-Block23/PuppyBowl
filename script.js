@@ -220,18 +220,32 @@ const renderNewPlayerForm = () => {
   idInput.required = true;
 
   const positionLabel = document.createElement("label");
-  positionLabel.textContent = "Position:";
+  positionLabel.textContent = "Position ( field or bench ):";
   const positionInput = document.createElement("input");
   positionInput.type = "text";
   positionInput.name = "position";
   positionInput.required = true;
 
   const teamLabel = document.createElement("label");
-  teamLabel.textContent = "Team:";
+  teamLabel.textContent = "Team ( Ruff or Fluff ):";
   const teamInput = document.createElement("input");
   teamInput.type = "text";
   teamInput.name = "team";
   teamInput.required = true;
+
+  const breedLabel = document.createElement("label");
+  breedLabel.textContent = "Breed:";
+  const breedInput = document.createElement("input");
+  breedInput.type = "text";
+  breedInput.name = "team";
+  breedInput.required = true;
+
+  const imageLabel = document.createElement("label");
+  imageLabel.textContent = "Image URL:";
+  const imageInput = document.createElement("input");
+  imageInput.type = "text";
+  imageInput.name = "team";
+  imageInput.required = false;
 
   const addButton = document.createElement("button");
   addButton.type = "submit";
@@ -239,12 +253,16 @@ const renderNewPlayerForm = () => {
 
   form.appendChild(nameLabel);
   form.appendChild(nameInput);
-  form.appendChild(idLabel);
-  form.appendChild(idInput);
+  //form.appendChild(idLabel);
+  //form.appendChild(idInput);
   form.appendChild(positionLabel);
   form.appendChild(positionInput);
   form.appendChild(teamLabel);
   form.appendChild(teamInput);
+  form.appendChild(breedLabel);
+  form.appendChild(breedInput);
+  form.appendChild(imageLabel);
+  form.appendChild(imageInput);
   form.appendChild(addButton);
 
   formContainer.appendChild(formTitle);
@@ -260,8 +278,12 @@ const renderNewPlayerForm = () => {
 
     const player = {
       name: nameInput.value,
-      position: positionInput.value,
-      team: teamInput.value,
+      status: positionInput.value,
+      //team: teamInput.value,
+      teamId: 777,
+      chortId: 422,
+      "imageUrl": imageInput.value,
+      breed: breedInput.value,
     };
 
     try {
