@@ -253,8 +253,6 @@ const renderNewPlayerForm = () => {
 
   form.appendChild(nameLabel);
   form.appendChild(nameInput);
-  form.appendChild(idLabel);
-  form.appendChild(idInput);
   form.appendChild(positionLabel);
   form.appendChild(positionInput);
   form.appendChild(teamLabel);
