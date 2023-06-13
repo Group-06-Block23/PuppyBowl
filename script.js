@@ -263,6 +263,7 @@ const renderNewPlayerForm = () => {
   form.appendChild(imageInput);
   form.appendChild(addButton);
 
+  
   formContainer.appendChild(formTitle);
   formContainer.appendChild(form);
 
