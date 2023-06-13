@@ -94,7 +94,7 @@ const renderPlayerCard = (player) => {
   playerId.textContent = `ID Number: ${player.id}`;
 
   const playerTeam = document.createElement("p");
-  playerTeam.textContent = `Team: ${player.cohortId}`;
+  playerTeam.textContent = `Team: ${player.teamId}`;
 
   const playerDetails = document.createElement("div");
   playerDetails.classList.add("player-details");
