@@ -254,7 +254,7 @@ const renderNewPlayerForm = () => {
   form.appendChild(nameLabel);
   form.appendChild(nameInput);
   form.appendChild(positionLabel);
-  form.appendChild(positionInput);
+  form.appendChild(positionInput); 
   form.appendChild(teamLabel);
   form.appendChild(teamInput);
   form.appendChild(breedLabel);
